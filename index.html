@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GIDD - GitHub Issue Driven Development | Riviera Dev 2026</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/dracula.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
+
+  <style>
+    :root {
+      --accent: #50fa7b;
+      --accent2: #8be9fd;
+      --warn: #ffb86c;
+    }
+
+    .reveal .slides section {
+      text-align: left;
+      padding: 0 20px;
+    }
+
+    .reveal h1, .reveal h2 {
+      text-transform: none;
+      letter-spacing: -0.01em;
+    }
+
+    .reveal h1 { font-size: 1.8em; color: var(--accent); }
+    .reveal h2 { font-size: 1.3em; color: var(--accent2); }
+    .reveal h3 { font-size: 1em; color: var(--warn); text-transform: none; }
+
+    .reveal ul { list-style: none; padding-left: 0; }
+    .reveal ul li::before { content: "▸ "; color: var(--accent); }
+    .reveal ul li { margin-bottom: 0.4em; }
+
+    /* Emoji bullet override */
+    .reveal ul li.emoji::before { content: ""; }
+
+    /* Full-height iframe embed */
+    .embed-wrap {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .embed-wrap iframe {
+      width: 100%;
+      height: 480px;
+      border: none;
+      border-radius: 6px;
+      background: #1e1e2e;
+    }
+    .embed-meta {
+      font-size: 0.45em;
+      margin-top: 6px;
+      opacity: 0.6;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .embed-meta a {
+      color: var(--accent2);
+      text-decoration: underline;
+    }
+
+    /* YouTube / video slides */
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 6px;
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    /* Image slide */
+    .img-wrap {
+      text-align: center;
+    }
+    .img-wrap img {
+      max-height: 480px;
+      max-width: 100%;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    /* Two-column layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* Highlight box */
+    .highlight-box {
+      background: rgba(80, 250, 123, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 10px 0;
+    }
+
+    /* Warn box */
+    .warn-box {
+      background: rgba(255, 184, 108, 0.1);
+      border-left: 4px solid var(--warn);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 10px 0;
+    }
+
+    /* Code-like prompt */
+    .prompt-box {
+      background: #1a1a2e;
+      border: 1px solid #44475a;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-family: monospace;
+      font-size: 0.7em;
+      color: #f8f8f2;
+      white-space: pre-wrap;
+    }
+    .prompt-box .prompt-label {
+      color: var(--accent);
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* Title slide */
+    .title-slide {
+      text-align: center !important;
+      padding-top: 60px !important;
+    }
+    .title-slide h1 {
+      font-size: 2.5em !important;
+      line-height: 1.2;
+      margin-bottom: 0.3em;
+    }
+    .title-slide .subtitle {
+      font-size: 1em;
+      color: #ccc;
+      margin-bottom: 0.5em;
+    }
+    .title-slide .conf {
+      font-size: 0.8em;
+      color: var(--warn);
+    }
+    .title-slide .author {
+      font-size: 0.75em;
+      margin-top: 40px;
+      opacity: 0.8;
+    }
+
+    /* Tag chips */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .chip {
+      background: rgba(139, 233, 253, 0.15);
+      border: 1px solid var(--accent2);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.6em;
+      color: var(--accent2);
+    }
+
+    /* Status icons for project list */
+    .project-list li::before { content: ""; }
+    .project-list li { display: flex; align-items: center; gap: 8px; font-size: 0.85em; }
+    .badge-done { color: var(--accent); font-weight: bold; }
+    .badge-wip { color: var(--warn); font-weight: bold; }
+
+    /* Big quote */
+    .big-quote {
+      font-size: 1.4em;
+      font-style: italic;
+      text-align: center;
+      color: var(--accent2);
+      padding: 20px;
+      border-top: 2px solid var(--accent2);
+      border-bottom: 2px solid var(--accent2);
+      margin: 20px 0;
+    }
+
+    /* Section header */
+    .section-header {
+      text-align: center !important;
+    }
+    .section-header h2 {
+      font-size: 2em !important;
+    }
+    .section-header .section-num {
+      font-size: 0.6em;
+      color: var(--warn);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Kiff final slide */
+    .kiff-slide {
+      text-align: center !important;
+    }
+    .kiff-slide h1 {
+      font-size: 3em !important;
+      color: var(--warn) !important;
+    }
+    .kiff-slide .emoji-big {
+      font-size: 3em;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ========== SLIDE 1 : TITRE ========== -->
+    <section class="title-slide">
+      <h1>GIDD</h1>
+      <div class="subtitle">GitHub Issue Driven Development</div>
+      <div class="conf">Riviera Dev 2026 · @sunix</div>
+      <div class="author">
+        Sun Tan · Sciam · ParisJUG<br>
+        <small>github.com/sunix</small>
+      </div>
+    </section>
+
+    <!-- ========== SLIDE 2 : QUI SUIS-JE ========== -->
+    <section>
+      <h2>Bonjour, je suis Sun 👋</h2>
+      <div class="two-col">
+        <ul>
+          <li>Anciennement Red Hat</li>
+          <li>Eclipse JKube · Fabric8 K8s Client</li>
+          <li>Eclipse Che · Eclipse Theia</li>
+          <li>Membre ParisJUG</li>
+          <li>Référent technique @ Sciam</li>
+          <li class="emoji">🍺 Brasseur de bière artisanal</li>
+        </ul>
+        <div>
+          <div class="chips">
+            <span class="chip">☁️ Cloud Native</span>
+            <span class="chip">☕ Java</span>
+            <span class="chip">🐳 Kubernetes</span>
+            <span class="chip">🤖 IA &amp; Agentic Dev</span>
+            <span class="chip">🍺 Homebrewer</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION : IA POUR LES DEVS ========== -->
+    <section class="section-header">
+      <div class="section-num">Chapitre 1</div>
+      <h2>Comment j'ai commencé à utiliser l'IA pour mes devs</h2>
+    </section>
+
+    <section>
+      <h2>Mes débuts avec l'IA</h2>
+      <ul>
+        <li>GitHub Copilot — mode commentaire → code dans l'IDE</li>
+        <li>Devoxx Genie — plugin IntelliJ (vibe coding avec des LLM)</li>
+        <li>Pas d'équivalent pour VS Code… alors j'ai contribué !</li>
+      </ul>
+      <div class="highlight-box">
+        <strong>VSCode Genie</strong> : mon projet — montré à la keynote Devoxx Belgique
+        <br><small><a href="https://github.com/sunix/vscode-genie" target="_blank">github.com/sunix/vscode-genie</a></small>
+      </div>
+      <aside class="notes">
+        Montrer le lien GitHub Copilot avec le mode commentaire.
+        Parler de Devoxx Genie et de comment j'ai voulu faire la même chose pour VS Code.
+      </aside>
+    </section>
+
+    <!-- SLIDE : YOUTUBE - Devoxx Belgium Keynote -->
+    <section>
+      <h2>VSCode Genie @ Devoxx Belgium</h2>
+      <div class="video-wrap">
+        <iframe
+          data-src="https://www.youtube.com/embed/6rVPvrY-z14?autoplay=1&mute=1&enablejsapi=1"
+          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="embed-meta">
+        <a href="https://youtu.be/6rVPvrY-z14" target="_blank">↗ youtu.be/6rVPvrY-z14</a>
+      </div>
+      <aside class="notes">Demo de vscode-genie à la keynote Devoxx Belgique.</aside>
+    </section>
+
+    <!-- ========== SECTION : SIDE PROJECTS ABANDONNÉS ========== -->
+    <section class="section-header">
+      <div class="section-num">Chapitre 2</div>
+      <h2>Mes side projects abandonnés</h2>
+    </section>
+
+    <section>
+      <h2>J'ai arrêté VSCode Genie 2 mois…</h2>
+      <ul>
+        <li>Impératifs personnels → pause forcée</li>
+        <li>Au retour : branche devenue un gros fork 😱</li>
+        <li>VSCode Genie a rejoint la liste des projects non finalisés…</li>
+      </ul>
+      <div class="warn-box">
+        Vous connaissez ce phénomène ? 👇
+      </div>
+      <aside class="notes">Parler de la difficulté de reprendre un projet après une longue pause.</aside>
+    </section>
+
+    <!-- SLIDE : CommitStrip -->
+    <section>
+      <h2>West Side Project Story</h2>
+      <div class="embed-wrap">
+        <iframe
+          data-src="https://www.commitstrip.com/fr/2014/11/25/west-side-project-story/?setLocale=1"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+        ></iframe>
+      </div>
+      <div class="embed-meta">
+        <a href="https://www.commitstrip.com/fr/2014/11/25/west-side-project-story/?setLocale=1" target="_blank">↗ commitstrip.com</a>
+      </div>
+    </section>
+
+    <!-- SLIDE : kport (YouTube) -->
+    <section>
+      <h2>kport – kubectl teleporter</h2>
+      <div class="video-wrap">
+        <iframe
+          data-src="https://www.youtube.com/embed/feL1uL-PLr8?autoplay=1&mute=1&start=1723&enablejsapi=1"
+          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="embed-meta">
+        <span>eclipse-jkube/kport — téléporter le dev local dans un cluster Kube</span>
+        <a href="https://youtu.be/feL1uL-PLr8?t=1723" target="_blank">↗ youtu.be/feL1uL-PLr8</a>
+      </div>
+      <aside class="notes">kport : presque fini… problème Windows + pause trop longue.</aside>
+    </section>
+
+    <!-- SLIDE : Pair programming Che (YouTube) -->
+    <section>
+      <h2>Pair programming dans Eclipse Che</h2>
+      <div class="video-wrap">
+        <iframe
+          data-src="https://www.youtube.com/embed/B9JHa9_aEFA?autoplay=1&mute=1&start=1163&enablejsapi=1"
+          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="embed-meta">
+        <span>Google Summer of Code — changement de techno cliente dans Che…</span>
+        <a href="https://youtu.be/B9JHa9_aEFA?t=1163" target="_blank">↗ youtu.be/B9JHa9_aEFA</a>
+      </div>
+    </section>
+
+    <!-- SLIDE : Happy Live Coding (YouTube) -->
+    <section>
+      <h2>Happy Live Coding + jh-pages</h2>
+      <div class="video-wrap">
+        <iframe
+          data-src="https://www.youtube.com/embed/TNNjPtRn46U?autoplay=1&mute=1&start=1082&enablejsapi=1"
+          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="embed-meta">
+        <span>Coder sur un projet open source en live — ~20 personnes → 1 suiveur (Lego)</span>
+        <a href="https://youtu.be/TNNjPtRn46U?t=1082" target="_blank">↗ youtu.be/TNNjPtRn46U</a>
+      </div>
+    </section>
+
+    <!-- SLIDE : Pourquoi ça échoue -->
+    <section>
+      <h2>Pourquoi je n'arrivais pas à finir ?</h2>
+      <div class="big-quote">
+        "Le plus dur dans un projet perso, ce sont les <strong>coupures</strong>"
+      </div>
+      <ul>
+        <li>Vrai boulot, famille, autres impératifs…</li>
+        <li>Plus on s'arrête → plus c'est difficile de reprendre</li>
+        <li>1 h par semaine : pas suffisant pour garder le contexte</li>
+      </ul>
+      <aside class="notes">
+        Transition vers la découverte de l'agentic dev : comment l'IA peut aider à reprendre le contexte ?
+      </aside>
+    </section>
+
+    <!-- ========== SECTION : LA RÉVÉLATION ========== -->
+    <section class="section-header">
+      <div class="section-num">Chapitre 3</div>
+      <h2>La révélation : l'agentic development</h2>
+    </section>
+
+    <!-- SLIDE : Stephan Jensen @ Devoxx France -->
+    <section>
+      <h2>Devoxx France 2025 · Stephan Jensen</h2>
+      <div class="video-wrap">
+        <iframe
+          data-src="https://www.youtube.com/embed/I4qPgRHCLBY?autoplay=1&mute=1&start=213&enablejsapi=1"
+          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="embed-meta">
+        <span>Agentic dev : prompt → l'agent code de manière autonome → promener son chien 🐕</span>
+        <a href="https://youtu.be/I4qPgRHCLBY?t=213" target="_blank">↗ youtu.be/I4qPgRHCLBY</a>
+      </div>
+      <aside class="notes">
+        Stephan donne juste un prompt, une spec, et l'agent Claude code de manière autonome jusqu'à la complétion de la tâche.
+        "Wow, on en est vraiment là ?"
+      </aside>
+    </section>
+
+    <!-- ========== SECTION : JE ME LANCE ========== -->
+    <section class="section-header">
+      <div class="section-num">Chapitre 4</div>
+      <h2>GitHub Copilot Agentic Mode</h2>
+    </section>
+
+    <!-- SLIDE : Je me suis lancé (image) -->
+    <section>
+      <h2>Je me suis lancé ! — 25 octobre 2025</h2>
+      <div class="img-wrap">
+        <img
+          data-src="https://gist.github.com/user-attachments/assets/d7aedc99-9383-47a2-ad76-dfbd8eae5172"
+          alt="Screenshot GitHub Copilot agentic mode - 23 mars 2026"
+        >
+      </div>
+      <aside class="notes">Le moment où j'ai essayé GitHub Copilot en mode agentic pour la première fois.</aside>
+    </section>
+
+    <!-- SLIDE : Le besoin - carte cadeaux -->
+    <section>
+      <h2>Le besoin : gérer mes cartes cadeaux</h2>
+      <ul>
+        <li>Ma femme travaille chez Red Hat → CSE hellocse.fr</li>
+        <li>Plein de cartes cadeaux (super U, etc.) à -5% 🛒</li>
+        <li>Google Wallet : impossible de suivre le solde restant</li>
+        <li>Idée : développer une app pour gérer codes-barres + solde</li>
+      </ul>
+      <div class="highlight-box">
+        Je demande à ChatGPT comment faire → 3 options → je choisis la <strong>full web</strong>
+      </div>
+    </section>
+
+    <!-- SLIDE : CSE Red Hat (embed) -->
+    <section>
+      <h2>CSE Red Hat — hellocse.fr</h2>
+      <div class="embed-wrap">
+        <iframe
+          data-src="https://www.cse-redhat.fr/shop/offres"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+        ></iframe>
+      </div>
+      <div class="embed-meta">
+        <a href="https://www.cse-redhat.fr/shop/offres" target="_blank">↗ cse-redhat.fr/shop/offres</a>
+      </div>
+    </section>
+
+    <!-- SLIDE : ChatGPT conversation (embed) -->
+    <section>
+      <h2>Conversation ChatGPT — Comment faire ?</h2>
+      <div class="embed-wrap">
+        <iframe
+          data-src="https://chatgpt.com/share/6a465b54-94e0-83eb-81b6-9156de393bf1"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+        ></iframe>
+      </div>
+      <div class="embed-meta">
+        <a href="https://chatgpt.com/share/6a465b54-94e0-83eb-81b6-9156de393bf1" target="_blank">↗ chatgpt.com/share/6a465b54</a>
+      </div>
+    </section>
+
+    <!-- ========== SECTION : DEMO LIVE ========== -->
+    <section class="section-header">
+      <div class="section-num">DEMO</div>
+      <h2>GitHub Copilot Agentic — en direct</h2>
+    </section>
+
+    <!-- SLIDE : Meta demo - creation de ces slides -->
+    <section>
+      <h2>Ces slides ont été créées avec GitHub Copilot 🤖</h2>
+      <div class="prompt-box">
+        <span class="prompt-label">📋 Le prompt envoyé à GitHub Copilot :</span>voici mes notes pour mon talk à la conf Riviera Dev 2026 [gist]
+j'aimerais créer des slides que je peux présenter
+  via le navigateur basés sur mes notes
+les slides seront dispo via github pages via l'url
+  https://sunix.github.io/gidd-rd26-repet
+quand il y'a des liens vers des images, ça doit les afficher
+pareil pour les vidéos youtube sur la slide,
+  ça doit jouer la vidéo automatiquement
+et pareil pour les liens vers des sites web externe,
+  ça doit les embeder et je dois pouvoir naviguer dedans
+  en gardant le cadre de la prez</div>
+      <aside class="notes">
+        C'est le moment méta du talk ! Ces slides que vous regardez ont été créées par GitHub Copilot à partir de mes notes.
+        Montrer le repo gidd-rd26-repet sur GitHub.
+      </aside>
+    </section>
+
+    <!-- SLIDE : Mon app carte cadeaux - demo -->
+    <section>
+      <h2>Mon app carte cadeaux — demo</h2>
+      <div class="embed-wrap">
+        <iframe
+          data-src="https://sunix.github.io/gift-card/"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation-by-user-activation"
+        ></iframe>
+      </div>
+      <div class="embed-meta">
+        <a href="https://sunix.github.io/gift-card/" target="_blank">↗ sunix.github.io/gift-card</a>
+        <a href="https://github.com/sunix/gift-card" target="_blank">↗ github.com/sunix/gift-card</a>
+      </div>
+    </section>
+
+    <!-- ========== SECTION : MON FLOW GIDD ========== -->
+    <section class="section-header">
+      <div class="section-num">Chapitre 5</div>
+      <h2>Mon flow GIDD — la synthèse</h2>
+    </section>
+
+    <!-- SLIDE : Flow -->
+    <section>
+      <h2>GitHub Issue Driven Development</h2>
+      <ul>
+        <li>1️⃣  Créer une <strong>GitHub Issue</strong> (depuis VS Code ou le téléphone)</li>
+        <li>2️⃣  Assigner à <strong>GitHub Copilot</strong> (Coding Agent)</li>
+        <li>3️⃣  Suivre la <strong>session live</strong> — voir ce qu'il fait</li>
+        <li>4️⃣  <strong>Revue de code</strong> de la PR générée</li>
+        <li>5️⃣  <strong>Commenter / demander des corrections</strong></li>
+        <li>6️⃣  <strong>Merger</strong> la PR ✅</li>
+      </ul>
+      <div class="chips" style="margin-top:16px">
+        <span class="chip">100% cloud, sans IDE</span>
+        <span class="chip">Depuis le téléphone</span>
+        <span class="chip">Comme un mainteneur OSS</span>
+      </div>
+      <aside class="notes">
+        Avantages : voir la session live, 100% dans le cloud, les screenshots avec MCP Playwright.
+        Comme si on était mainteneur d'un projet open source.
+      </aside>
+    </section>
+
+    <!-- SLIDE : Créer une issue depuis VS Code -->
+    <section>
+      <h2>Créer une issue depuis VS Code</h2>
+      <div class="img-wrap">
+        <img
+          data-src="https://gist.github.com/user-attachments/assets/7f9783bf-58db-4e84-9f53-69ebafdb6cb4"
+          alt="Créer une issue depuis VS Code Copilot Chat"
+        >
+      </div>
+    </section>
+
+    <section>
+      <h2>Créer une issue depuis VS Code (2)</h2>
+      <div class="img-wrap">
+        <img
+          data-src="https://gist.github.com/user-attachments/assets/c1e9a907-6606-4fe4-93cf-69818e084d5c"
+          alt="Screenshot create issue from vscode copilot chat"
+        >
+      </div>
+    </section>
+
+    <section>
+      <h2>Créer une issue avec gh CLI</h2>
+      <div class="img-wrap">
+        <img
+          data-src="https://gist.github.com/user-attachments/assets/9bdafb19-f9e3-42af-8b7d-33ef62d33ff9"
+          alt="Screenshot create issue with gh cli"
+        >
+      </div>
+    </section>
+
+    <!-- SLIDE : Exemple PR gift-card -->
+    <section>
+      <h2>Exemple de PR — gift-card</h2>
+      <div class="embed-wrap">
+        <iframe
+          data-src="https://github.com/sunix/gift-card/pull/79#issuecomment-3733576137"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation-by-user-activation"
+        ></iframe>
+      </div>
+      <div class="embed-meta">
+        <a href="https://github.com/sunix/gift-card/pull/79" target="_blank">↗ github.com/sunix/gift-card/pull/79</a>
+      </div>
+    </section>
+
+    <!-- ========== SECTION : RÉFUTATIONS ========== -->
+    <section class="section-header">
+      <div class="section-num">Chapitre 6</div>
+      <h2>Réfutations &amp; Bonnes pratiques</h2>
+    </section>
+
+    <!-- SLIDE : Spam (image) -->
+    <section>
+      <h2>Attention au spam ! 📬</h2>
+      <div class="img-wrap">
+        <img
+          data-src="https://gist.github.com/user-attachments/assets/a2c6feb3-4a1e-4ace-8688-24f6ff604726"
+          alt="Spam JMX - notifications GitHub"
+        >
+      </div>
+      <div class="warn-box" style="font-size:0.8em; margin-top:10px">
+        💡 Solution : travailler dans un <strong>fork</strong>, soumettre la PR quand c'est prêt
+      </div>
+    </section>
+
+    <!-- SLIDE : Projets complexes -->
+    <section>
+      <h2>Ça ne marche pas pour les projets complexes</h2>
+      <ul>
+        <li>Exemple : <code>jdtls-mcp</code> — trop complexe d'un coup</li>
+        <li>Solution : <strong>petites itérations</strong></li>
+        <li>Documenter les prochaines étapes dans <code>agent.md</code> / README</li>
+        <li>Comme en vrai développement : pas de PR trop grosse !</li>
+      </ul>
+      <div class="embed-wrap" style="margin-top:10px">
+        <iframe
+          data-src="https://github.com/sunix/java-lsp-mcp-server?tab=readme-ov-file#-next-steps"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation-by-user-activation"
+          style="height:300px"
+        ></iframe>
+      </div>
+      <div class="embed-meta">
+        <a href="https://github.com/sunix/java-lsp-mcp-server" target="_blank">↗ github.com/sunix/java-lsp-mcp-server</a>
+      </div>
+    </section>
+
+    <!-- SLIDE : Ce qui marche moins bien -->
+    <section>
+      <h2>Ce qui marche moins bien</h2>
+      <ul>
+        <li>Interactions git complexes (rebase, push force)</li>
+        <li>Exécution locale (ex: tester des rendus kdenlive)</li>
+        <li>Quand y'a besoin d'expérimentation → ChatGPT / Copilot Chat d'abord</li>
+      </ul>
+      <div class="highlight-box">
+        💡 <strong>Ne pas laisser l'IA seule !</strong><br>
+        Demandez-lui de générer des scripts Playwright pour retester à l'identique dans la CI
+      </div>
+      <aside class="notes">
+        sunix.github.io/Tennis-Match-Scoring-Web-App/ — exemple de web app testée avec screenshots.
+      </aside>
+    </section>
+
+    <!-- SLIDE : Tennis Match Score (embed) -->
+    <section>
+      <h2>Tennis Match Scoring — Web App</h2>
+      <div class="embed-wrap">
+        <iframe
+          data-src="https://sunix.github.io/Tennis-Match-Scoring-Web-App/"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation-by-user-activation"
+        ></iframe>
+      </div>
+      <div class="embed-meta">
+        <a href="https://sunix.github.io/Tennis-Match-Scoring-Web-App/" target="_blank">↗ sunix.github.io/Tennis-Match-Scoring-Web-App</a>
+        <a href="https://github.com/sunix/Tennis-Match-Scoring-Web-App" target="_blank">↗ GitHub</a>
+      </div>
+    </section>
+
+    <!-- SLIDE : Billing GitHub → Claude -->
+    <section>
+      <h2>Changement des tarifs GitHub Copilot 😱</h2>
+      <ul>
+        <li>5 juin 2026 : passage à l'usage-based billing</li>
+        <li>En 5 jours → 50% de mes crédits consommés !</li>
+        <li>Migration vers <strong>Claude Code</strong></li>
+      </ul>
+      <div class="two-col" style="margin-top:12px">
+        <div class="warn-box">
+          <strong>Claude Code</strong><br>
+          ✅ Fait bien le boulot<br>
+          ❌ Scotché sur le PC<br>
+          ❌ Moins intuitif<br>
+          ❌ Fini les interactions GitHub Issues/PR
+        </div>
+        <div class="highlight-box">
+          <strong>Solution : Claude GitHub Actions</strong><br>
+          Flow similaire à GIDD<br>
+          @Claude dans les issues<br>
+          <a href="https://code.claude.com/docs/en/github-actions" target="_blank" style="font-size:0.8em">↗ code.claude.com/docs</a>
+        </div>
+      </div>
+      <aside class="notes">
+        En terme de charge mentale : GIDD est moins intrusif.
+        1 minute sur le téléphone pendant que ma fille est à la piscine vs être scotché sur le PC.
+      </aside>
+    </section>
+
+    <!-- ========== SECTION : PÉRORAISON ========== -->
+    <section class="section-header">
+      <div class="section-num">Conclusion</div>
+      <h2>Péroraison</h2>
+    </section>
+
+    <!-- SLIDE : Suivez les bonnes pratiques -->
+    <section>
+      <h2>Suivez les bonnes pratiques de dev ! 🏆</h2>
+      <div class="big-quote">
+        Mettez-vous à la place de l'IA en tant que personne
+      </div>
+      <ul>
+        <li>📝 <strong>Documentation</strong> — elle s'en sert comme un humain</li>
+        <li>📋 <strong>Spec claire</strong> — définitions of done précises</li>
+        <li>🔧 <strong>Choix techniques</strong> documentés dans <code>agent.md</code></li>
+        <li>🎯 <strong>Petites tâches</strong> — ne pas lui demander trop d'un coup</li>
+        <li>🔄 <strong>Itérations</strong> — votre feedback est précieux</li>
+      </ul>
+    </section>
+
+    <!-- SLIDE : Bilan projets -->
+    <section>
+      <h2>Bilan des projets lancés 📊</h2>
+      <ul class="project-list">
+        <li><span class="badge-done">✅</span> Carte cadeaux — full GIDD, je m'en sers tous les jours</li>
+        <li><span class="badge-done">✅</span> Test maturity assessment</li>
+        <li><span class="badge-done">✅</span> Tirage au sort Bluesky — full GIDD</li>
+        <li><span class="badge-done">✅</span> Tennis Match Score</li>
+        <li><span class="badge-wip">🔄</span> jdtls-mcp — mix chat + GIDD</li>
+        <li><span class="badge-wip">🔄</span> Blog migration Quarkus Roq</li>
+        <li><span class="badge-wip">🔄</span> tc11.fr website — mix chat + GIDD</li>
+        <li><span class="badge-wip">🔄</span> App gestion notes de frais</li>
+      </ul>
+      <aside class="notes">Dashboard GitHub : bilan.github.com/dashboard</aside>
+    </section>
+
+    <!-- SLIDE : J'ai pu finir mes applications -->
+    <section>
+      <h2>J'ai pu finir mes applications ! 🎉</h2>
+      <ul>
+        <li>Qui me <strong>servent dans la vie de tous les jours</strong> (perso &amp; pro)</li>
+        <li>Le plus dur c'est de <strong>se lancer</strong></li>
+        <li>Faire des erreurs et faire mieux ensuite</li>
+      </ul>
+      <div class="highlight-box" style="margin-top:20px; text-align:center">
+        <strong>Ca me permet de bosser sur des sujets,<br>
+        de garder le rythme 🚀</strong>
+      </div>
+    </section>
+
+    <!-- SLIDE : C'est un kiff -->
+    <section class="kiff-slide">
+      <h1>C'est un KIFF ! 🔥</h1>
+      <ul style="display:inline-block; text-align:left; margin-top:20px">
+        <li>D'aller au bout de ses idées</li>
+        <li>Finir ses apps et les utiliser !</li>
+        <li>Voir l'IA coder pour toi en live</li>
+      </ul>
+    </section>
+
+    <!-- SLIDE : Attention à l'addiction -->
+    <section>
+      <h2>⚠️ Attention à l'addiction !</h2>
+      <div class="warn-box">
+        Y'a des fois je décroche plus mon téléphone / mon ordi…<br>
+        Risque réel de <strong>burn out</strong>
+      </div>
+      <ul style="margin-top:16px">
+        <li>Prendre soin de votre <strong>santé mentale</strong></li>
+        <li>Celle de vos <strong>agents</strong> aussi 🤖❤️</li>
+      </ul>
+    </section>
+
+    <!-- SLIDE : Réflexions bonus -->
+    <section>
+      <h2>Réflexions bonus 💭</h2>
+      <ul>
+        <li>IA vs <strong>outsourcing</strong> d'il y a 15 ans ?</li>
+        <li>IA vs <strong>low-code</strong> ?</li>
+        <li>L'IA comme moyen de <strong>tester ses idées</strong> :
+          si l'IA comprend → l'idée est claire !</li>
+        <li>Comme si on était <strong>mainteneur OSS</strong> et qu'on faisait des reviews —
+          mais c'est nous qui créons !</li>
+      </ul>
+    </section>
+
+    <!-- SLIDE : Fin -->
+    <section class="title-slide">
+      <h1>Merci ! 🙏</h1>
+      <div class="subtitle">Questions ?</div>
+      <div style="margin-top:30px">
+        <div class="chips" style="justify-content:center">
+          <span class="chip">@sunix</span>
+          <span class="chip">github.com/sunix</span>
+          <span class="chip">#GIDD</span>
+          <span class="chip">#RivieraDev2026</span>
+        </div>
+      </div>
+      <div class="author" style="margin-top:40px">
+        Ces slides : <a href="https://sunix.github.io/gidd-rd26-repet" style="color:var(--accent2)">sunix.github.io/gidd-rd26-repet</a>
+      </div>
+    </section>
+
+  </div><!-- /.slides -->
+</div><!-- /.reveal -->
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    progress: true,
+    center: true,
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    // Lazy-load iframes and images using data-src
+    preloadIframes: null,
+    plugins: [ RevealHighlight, RevealNotes ]
+  });
+
+  // Stop YouTube videos when navigating away from a slide
+  Reveal.on('slidechanged', function(event) {
+    stopIframeVideos(event.previousSlide);
+  });
+
+  Reveal.on('slidehidden', function(event) {
+    stopIframeVideos(event.slide);
+  });
+
+  function stopIframeVideos(slide) {
+    if (!slide) return;
+    slide.querySelectorAll('iframe[src*="youtube"]').forEach(function(iframe) {
+      try {
+        // Post message to pause via YouTube IFrame API
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }),
+          'https://www.youtube.com'
+        );
+      } catch (e) { /* cross-origin, ignore */ }
+    });
+  }
+</script>
+</body>
+</html>
