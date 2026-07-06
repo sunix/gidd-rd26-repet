@@ -187,12 +187,32 @@
       color: #f8f8f2;
       white-space: pre-wrap;
     }
+    .prompt-box .prompt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
     .prompt-box .prompt-label {
       color: var(--accent);
       font-weight: bold;
-      display: block;
-      margin-bottom: 8px;
     }
+    .copy-btn {
+      background: var(--accent);
+      color: #1a1a2e;
+      border: none;
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-family: inherit;
+      font-size: 0.85em;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .copy-btn:hover { opacity: 0.85; }
+    .copy-btn.copied { background: var(--accent2); }
 
     /* Title slide */
     .title-slide {
@@ -656,7 +676,11 @@
     <section>
       <h2>Ces slides ont été créées avec GitHub Copilot 🤖</h2>
       <div class="prompt-box">
-        <span class="prompt-label">📋 Le prompt envoyé à GitHub Copilot :</span>voici mes notes pour mon talk à la conf Riviera Dev 2026 [gist]
+        <div class="prompt-header">
+          <span class="prompt-label">📋 Le prompt envoyé à GitHub Copilot :</span>
+          <button class="copy-btn" onclick="copyPromptText('prompt-raw-slides', this)">📄 Copier</button>
+        </div>
+        <span>voici mes notes pour mon talk à la conf Riviera Dev 2026 <a href="https://gist.github.com/sunix/981e8752301ea532a36dae989a583a86#file-rivieradev-gidd-md" target="_blank" rel="noopener noreferrer">[gist]</a>
 j'aimerais créer des slides que je peux présenter
   via le navigateur basés sur mes notes
 les slides seront dispo via github pages via l'url
@@ -666,7 +690,19 @@ pareil pour les vidéos youtube sur la slide,
   ça doit jouer la vidéo automatiquement
 et pareil pour les liens vers des sites web externe,
   ça doit les embeder et je dois pouvoir naviguer dedans
-  en gardant le cadre de la prez</div>
+  en gardant le cadre de la prez</span>
+        <script type="text/plain" id="prompt-raw-slides">voici mes notes pour mon talk à la conf Riviera Dev 2026 https://gist.github.com/sunix/981e8752301ea532a36dae989a583a86#file-rivieradev-gidd-md
+j'aimerais créer des slides que je peux présenter
+  via le navigateur basés sur mes notes
+les slides seront dispo via github pages via l'url
+  https://sunix.github.io/gidd-rd26-repet
+quand il y'a des liens vers des images, ça doit les afficher
+pareil pour les vidéos youtube sur la slide,
+  ça doit jouer la vidéo automatiquement
+et pareil pour les liens vers des sites web externe,
+  ça doit les embeder et je dois pouvoir naviguer dedans
+  en gardant le cadre de la prez</script>
+      </div>
       <aside class="notes">
         C'est le moment méta du talk ! Ces slides que vous regardez ont été créées par GitHub Copilot à partir de mes notes.
         Attention à bien préciser l'URL GitHub Pages, le comportement attendu pour les images, les vidéos YouTube
@@ -1072,6 +1108,20 @@ et pareil pour les liens vers des sites web externe,
     preloadIframes: null,
     plugins: [ RevealHighlight, RevealNotes ]
   });
+
+  // Copy the raw (non-HTML) text of a prompt-box into the clipboard
+  function copyPromptText(id, btn) {
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text).then(function () {
+      const original = btn.textContent;
+      btn.textContent = '✅ Copié !';
+      btn.classList.add('copied');
+      setTimeout(function () {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1500);
+    });
+  }
 
   // Stop YouTube videos when navigating away from a slide
   Reveal.on('slidechanged', function(event) {
