@@ -574,6 +574,33 @@
       </aside>
     </section>
 
+    <!-- SLIDE : Google Wallet -->
+    <section>
+      <h2>Google Wallet — le point de départ</h2>
+      <div class="blocked-embed">
+        <div class="blocked-shot">
+          <img
+            data-src="assets/google-wallet-pass.png"
+            alt="Screenshot Google Wallet avec le solde d'une carte cadeau"
+          >
+        </div>
+        <div class="blocked-copy">
+          <div class="warn-box">
+            Je voyais bien le code-barres, mais pas clairement le solde restant.
+          </div>
+          <p>
+            Le screenshot garde le contexte visuel sur la slide, puis Google Wallet peut être ouvert dans un onglet séparé pendant le talk.
+          </p>
+          <div class="blocked-actions">
+            <a href="https://wallet.google.com/wallet/passes/CiA4NWM2NzU0ZDY2MDA0Y2ZlYTlkNjA2ZjQ5ODdiNjRmZg?utm_source=website&utm_medium=marketing&utm_campaign=wallet_about" target="_blank" rel="noopener noreferrer">Ouvrir Google Wallet ↗</a>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">
+        TODO présenter GIDD (GitHub Issue Driven Dev) sur la carte cadeau.
+      </aside>
+    </section>
+
     <!-- SLIDE : ChatGPT conversation (embed) -->
     <section>
       <h2>Conversation ChatGPT — Comment faire ?</h2>
@@ -605,6 +632,26 @@
       </aside>
     </section>
 
+    <!-- SLIDE : Création du repo GitHub - champ Prompt -->
+    <section>
+      <h2>Création du repo GitHub — le champ Prompt</h2>
+      <ul>
+        <li>Motivé, je vais créer le repo de mon app carte cadeaux 🎁</li>
+        <li>Direction <a href="https://github.com/new" target="_blank" rel="noopener noreferrer">github.com/new</a> pour créer <code>gift-card</code></li>
+        <li>Surprise : un champ <strong>Prompt</strong> apparaît à la création !</li>
+        <li>Je me souviens du talk de Stephan Jensen…</li>
+      </ul>
+      <div class="highlight-box">
+        Moment d'hésitation, puis je me lance : je remplis le prompt pour générer mon app carte cadeaux.
+      </div>
+      <aside class="notes">
+        Motivé par la conversation ChatGPT, je pars créer le repo de mon app carte cadeaux (gift-card) sur
+        github.com/new. Là, surprise : je tombe sur le champ Prompt (nouvelle fonctionnalité de création de
+        repo avec agent). Je me rappelle du talk de Stephan, c'était exactement ça, j'ai un moment
+        d'hésitation, et je me lance.
+      </aside>
+    </section>
+
     <!-- SLIDE : Meta demo - creation de ces slides -->
     <section>
       <h2>Ces slides ont été créées avec GitHub Copilot 🤖</h2>
@@ -625,33 +672,6 @@ et pareil pour les liens vers des sites web externe,
         Attention à bien préciser l'URL GitHub Pages, le comportement attendu pour les images, les vidéos YouTube
         (lecture automatique) et les liens externes (embed navigable en gardant le cadre de la présentation).
         Montrer le repo gidd-rd26-repet sur GitHub.
-      </aside>
-    </section>
-
-    <!-- SLIDE : Google Wallet -->
-    <section>
-      <h2>Google Wallet — le point de départ</h2>
-      <div class="blocked-embed">
-        <div class="blocked-shot">
-          <img
-            data-src="assets/google-wallet-pass.png"
-            alt="Screenshot Google Wallet avec le solde d'une carte cadeau"
-          >
-        </div>
-        <div class="blocked-copy">
-          <div class="warn-box">
-            Je voyais bien le code-barres, mais pas clairement le solde restant.
-          </div>
-          <p>
-            Le screenshot garde le contexte visuel sur la slide, puis Google Wallet peut être ouvert dans un onglet séparé pendant le talk.
-          </p>
-          <div class="blocked-actions">
-            <a href="https://wallet.google.com/wallet/passes/CiA4NWM2NzU0ZDY2MDA0Y2ZlYTlkNjA2ZjQ5ODdiNjRmZg?utm_source=website&utm_medium=marketing&utm_campaign=wallet_about" target="_blank" rel="noopener noreferrer">Ouvrir Google Wallet ↗</a>
-          </div>
-        </div>
-      </div>
-      <aside class="notes">
-        TODO présenter GIDD (GitHub Issue Driven Dev) sur la carte cadeau.
       </aside>
     </section>
 
@@ -692,6 +712,24 @@ et pareil pour les liens vers des sites web externe,
         comme si on était mainteneur d'un projet open source et qu'on faisait la différence, et les screenshots
         avec un serveur MCP Playwright. Ça n'avait pas marché du premier coup, en tout cas pour certaines PR
         (ex. gift-card #3).
+      </aside>
+    </section>
+
+    <!-- SLIDE : Demo - modification des slides via GIDD -->
+    <section>
+      <h2>Démo : modifier ces slides en utilisant GIDD</h2>
+      <ul>
+        <li>Retour au méta : on va modifier <strong>ces slides</strong>, en live</li>
+        <li>Création d'une issue GitHub décrivant le changement voulu</li>
+        <li>Assignation à l'agent (GitHub Copilot / Claude)</li>
+        <li>Revue de la PR générée, puis merge ✅</li>
+      </ul>
+      <div class="highlight-box">
+        On boucle : ce talk lui-même a été affiné via GIDD !
+      </div>
+      <aside class="notes">
+        Démo live : on modifie les slides de cette présentation en créant une issue GitHub, en l'assignant à
+        l'agent, et en mergeant la PR générée. Boucle méta : ce talk a été affiné via GIDD.
       </aside>
     </section>
 
