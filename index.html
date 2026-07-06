@@ -63,6 +63,38 @@
       color: var(--accent2);
       text-decoration: underline;
     }
+    .blocked-embed {
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+      padding: 32px;
+      border: 1px solid #44475a;
+      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(139, 233, 253, 0.08), rgba(80, 250, 123, 0.08));
+    }
+    .blocked-embed p {
+      margin: 0;
+      font-size: 0.72em;
+      line-height: 1.4;
+    }
+    .blocked-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .blocked-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid currentColor;
+      color: var(--accent2);
+      text-decoration: none;
+      font-size: 0.55em;
+    }
 
     /* YouTube / video slides */
     .video-wrap {
@@ -458,11 +490,16 @@
     <!-- SLIDE : CSE Red Hat (embed) -->
     <section>
       <h2>CSE Red Hat — hellocse.fr</h2>
-      <div class="embed-wrap">
-        <iframe
-          data-src="https://www.cse-redhat.fr/shop/offres"
-          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-        ></iframe>
+      <div class="blocked-embed">
+        <div class="warn-box" style="margin:0">
+          hellocse.fr bloque l'affichage dans une iframe (<code>X-Frame-Options: SAMEORIGIN</code>).
+        </div>
+        <p>
+          À la place d'un slide vide, j'ouvre le site dans un onglet séparé pendant la démo puis je reviens sur la présentation.
+        </p>
+        <div class="blocked-actions">
+          <a href="https://www.cse-redhat.fr/shop/offres" target="_blank" rel="noopener noreferrer">Ouvrir hellocse.fr ↗</a>
+        </div>
       </div>
       <div class="embed-meta">
         <a href="https://www.cse-redhat.fr/shop/offres" target="_blank">↗ cse-redhat.fr/shop/offres</a>
@@ -472,11 +509,16 @@
     <!-- SLIDE : ChatGPT conversation (embed) -->
     <section>
       <h2>Conversation ChatGPT — Comment faire ?</h2>
-      <div class="embed-wrap">
-        <iframe
-          data-src="https://chatgpt.com/share/6a465b54-94e0-83eb-81b6-9156de393bf1"
-          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-        ></iframe>
+      <div class="blocked-embed">
+        <div class="warn-box" style="margin:0">
+          Le partage ChatGPT ne s'affiche pas de manière fiable dans une iframe.
+        </div>
+        <p>
+          La solution la plus robuste pour la présentation est d'ouvrir la conversation dans un onglet séparé, puis de revenir aux slides.
+        </p>
+        <div class="blocked-actions">
+          <a href="https://chatgpt.com/share/6a465b54-94e0-83eb-81b6-9156de393bf1" target="_blank" rel="noopener noreferrer">Ouvrir le partage ChatGPT ↗</a>
+        </div>
       </div>
       <div class="embed-meta">
         <a href="https://chatgpt.com/share/6a465b54-94e0-83eb-81b6-9156de393bf1" target="_blank">↗ chatgpt.com/share/6a465b54</a>
