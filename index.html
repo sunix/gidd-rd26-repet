@@ -5,16 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>GIDD - GitHub Issue Driven Development | Riviera Dev 2026</title>
 
+  <!-- Google Fonts — same families used on rivieradev.fr -->
+  <link href="https://fonts.googleapis.com/css2?family=Muli:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tomorrow:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/dracula.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
 
   <style>
+    /* ── RivieraDev colour palette ─────────────────────────────── */
     :root {
-      --accent: #50fa7b;
-      --accent2: #8be9fd;
-      --warn: #ffb86c;
+      --rd-yellow: #fdba1d;   /* primary accent — RivieraDev gold  */
+      --rd-blue:   #19b8d5;   /* secondary accent — sky blue       */
+      --rd-dark:   #0d1b2a;   /* slide background — deep navy      */
+      --rd-card:   #122035;   /* card / panel background           */
+      --rd-border: #1e3a52;   /* subtle border colour              */
+
+      /* semantic aliases used throughout the slides */
+      --accent:  var(--rd-yellow);
+      --accent2: var(--rd-blue);
+      --warn:    #e07b27;     /* warm orange — kept for contrast   */
+    }
+
+    /* ── Base overrides ────────────────────────────────────────── */
+    .reveal-viewport {
+      background:
+        /* RivieraDev gold sun — bottom-right warm glow */
+        radial-gradient(ellipse 55% 55% at 90% 95%, rgba(253, 186, 29, 0.10) 0%, transparent 100%),
+        /* RivieraDev blue sea — top-left cool glow */
+        radial-gradient(ellipse 65% 55% at 5% 5%, rgba(25, 184, 213, 0.13) 0%, transparent 100%),
+        /* Subtle low-poly diagonal tiling */
+        linear-gradient(135deg, rgba(25, 184, 213, 0.03) 25%, transparent 25%) -20px 0,
+        linear-gradient(225deg, rgba(25, 184, 213, 0.03) 25%, transparent 25%) -20px 0,
+        linear-gradient(315deg, rgba(25, 184, 213, 0.03) 25%, transparent 25%),
+        linear-gradient( 45deg, rgba(25, 184, 213, 0.03) 25%, transparent 25%),
+        var(--rd-dark);
+      background-size: auto, auto, 40px 40px, 40px 40px, 40px 40px, 40px 40px;
+    }
+    .reveal {
+      font-family: 'Muli', sans-serif;
+      background: transparent;
     }
 
     .reveal .slides section {
@@ -22,14 +54,20 @@
       padding: 0 20px;
     }
 
-    .reveal h1, .reveal h2 {
+    /* ── Headings — Tomorrow font, RivieraDev palette ────────── */
+    .reveal h1, .reveal h2, .reveal h3 {
+      font-family: 'Tomorrow', sans-serif;
       text-transform: none;
       letter-spacing: -0.01em;
     }
 
-    .reveal h1 { font-size: 1.8em; color: var(--accent); }
-    .reveal h2 { font-size: 1.3em; color: var(--accent2); }
-    .reveal h3 { font-size: 1em; color: var(--warn); text-transform: none; }
+    .reveal h1 { font-size: 1.8em; color: var(--rd-yellow); }
+    .reveal h2 { font-size: 1.3em; color: var(--rd-blue); }
+    .reveal h3 { font-size: 1em;   color: var(--warn); }
+
+    /* RivieraDev signature: { } around h2 slide titles */
+    .reveal h2::before { content: "{ "; color: var(--rd-yellow); opacity: 0.7; }
+    .reveal h2::after  { content: " }"; color: var(--rd-yellow); opacity: 0.7; }
 
     .reveal ul { list-style: none; padding-left: 0; }
     .reveal ul li::before { content: "▸ "; color: var(--accent); }
@@ -49,7 +87,7 @@
       height: 480px;
       border: none;
       border-radius: 6px;
-      background: #1e1e2e;
+      background: var(--rd-dark);
     }
     .embed-meta {
       font-size: 0.45em;
@@ -69,9 +107,9 @@
       grid-template-columns: minmax(0, 1.65fr) minmax(280px, 1fr);
       gap: 24px;
       padding: 24px;
-      border: 1px solid #44475a;
+      border: 1px solid var(--rd-border);
       border-radius: 8px;
-      background: linear-gradient(135deg, rgba(139, 233, 253, 0.08), rgba(80, 250, 123, 0.08));
+      background: linear-gradient(135deg, rgba(25, 184, 213, 0.08), rgba(253, 186, 29, 0.08));
       align-items: center;
     }
     .blocked-shot {
@@ -81,7 +119,7 @@
       justify-content: center;
       padding: 10px;
       border-radius: 8px;
-      background: rgba(15, 18, 32, 0.55);
+      background: rgba(13, 27, 42, 0.55);
     }
     .blocked-shot img {
       width: 100%;
@@ -158,19 +196,19 @@
       align-items: start;
     }
 
-    /* Highlight box */
+    /* Highlight box — RivieraDev blue tint */
     .highlight-box {
-      background: rgba(80, 250, 123, 0.1);
-      border-left: 4px solid var(--accent);
+      background: rgba(25, 184, 213, 0.1);
+      border-left: 4px solid var(--rd-blue);
       padding: 16px 20px;
       border-radius: 0 8px 8px 0;
       margin: 10px 0;
     }
 
-    /* Warn box */
+    /* Warn box — warm orange tint */
     .warn-box {
-      background: rgba(255, 184, 108, 0.1);
-      border-left: 4px solid var(--warn);
+      background: rgba(253, 186, 29, 0.1);
+      border-left: 4px solid var(--rd-yellow);
       padding: 16px 20px;
       border-radius: 0 8px 8px 0;
       margin: 10px 0;
@@ -178,8 +216,8 @@
 
     /* Code-like prompt */
     .prompt-box {
-      background: #1a1a2e;
-      border: 1px solid #44475a;
+      background: var(--rd-card);
+      border: 1px solid var(--rd-border);
       border-radius: 8px;
       padding: 16px 20px;
       font-family: monospace;
@@ -199,12 +237,12 @@
       font-weight: bold;
     }
     .copy-btn {
-      background: var(--accent);
-      color: #1a1a2e;
+      background: var(--rd-yellow);
+      color: var(--rd-dark);
       border: none;
-      border-radius: 6px;
-      padding: 4px 12px;
-      font-family: inherit;
+      border-radius: 3rem;
+      padding: 4px 14px;
+      font-family: 'Tomorrow', sans-serif;
       font-size: 0.85em;
       font-weight: bold;
       cursor: pointer;
@@ -212,7 +250,7 @@
       flex-shrink: 0;
     }
     .copy-btn:hover { opacity: 0.85; }
-    .copy-btn.copied { background: var(--accent2); }
+    .copy-btn.copied { background: var(--rd-blue); color: #fff; }
 
     /* Title slide */
     .title-slide {
@@ -226,20 +264,32 @@
     }
     .title-slide .subtitle {
       font-size: 1em;
-      color: #ccc;
+      color: #c0d4e4;
       margin-bottom: 0.5em;
     }
     .title-slide .conf {
       font-size: 0.8em;
-      color: var(--warn);
+      color: var(--rd-yellow);
+      font-family: 'Tomorrow', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
     }
     .title-slide .author {
       font-size: 0.75em;
       margin-top: 40px;
       opacity: 0.8;
     }
+    /* RivieraDev logo on title/closing slides */
+    .rd-logo {
+      margin-top: 18px;
+    }
+    .rd-logo img {
+      height: 36px;
+      opacity: 0.85;
+      vertical-align: middle;
+    }
 
-    /* Tag chips */
+    /* Tag chips — RivieraDev blue */
     .chips {
       display: flex;
       flex-wrap: wrap;
@@ -247,18 +297,18 @@
       margin-top: 10px;
     }
     .chip {
-      background: rgba(139, 233, 253, 0.15);
-      border: 1px solid var(--accent2);
-      border-radius: 20px;
+      background: rgba(25, 184, 213, 0.15);
+      border: 1px solid var(--rd-blue);
+      border-radius: 3rem;
       padding: 4px 14px;
       font-size: 0.6em;
-      color: var(--accent2);
+      color: var(--rd-blue);
     }
 
     /* Status icons for project list */
     .project-list li::before { content: ""; }
     .project-list li { display: flex; align-items: center; gap: 8px; font-size: 0.85em; }
-    .badge-done { color: var(--accent); font-weight: bold; }
+    .badge-done { color: var(--rd-yellow); font-weight: bold; }
     .badge-wip { color: var(--warn); font-weight: bold; }
 
     /* Project cards grid */
@@ -271,9 +321,9 @@
     .project-card {
       display: flex;
       flex-direction: column;
-      border: 1px solid #44475a;
+      border: 1px solid var(--rd-border);
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--rd-card);
       overflow: hidden;
     }
     .project-card img {
@@ -281,7 +331,7 @@
       height: 90px;
       object-fit: cover;
       display: block;
-      background: #1e1e2e;
+      background: var(--rd-dark);
     }
     .project-card .pc-body {
       display: flex;
@@ -293,7 +343,7 @@
     .project-card .pc-title {
       font-size: 0.62em;
       font-weight: bold;
-      color: var(--accent2);
+      color: var(--rd-blue);
       line-height: 1.2;
     }
     .project-card .pc-desc {
@@ -310,12 +360,12 @@
       border-radius: 10px;
     }
     .project-card .pc-tag.full {
-      background: rgba(80, 250, 123, 0.15);
-      color: var(--accent);
-      border: 1px solid var(--accent);
+      background: rgba(253, 186, 29, 0.15);
+      color: var(--rd-yellow);
+      border: 1px solid var(--rd-yellow);
     }
     .project-card .pc-tag.mix {
-      background: rgba(255, 184, 108, 0.15);
+      background: rgba(224, 123, 39, 0.15);
       color: var(--warn);
       border: 1px solid var(--warn);
     }
@@ -326,7 +376,7 @@
     }
     .project-card a.pc-link {
       font-size: 0.42em;
-      color: var(--accent2);
+      color: var(--rd-blue);
       text-decoration: underline;
     }
 
@@ -335,14 +385,14 @@
       font-size: 1.4em;
       font-style: italic;
       text-align: center;
-      color: var(--accent2);
+      color: var(--rd-blue);
       padding: 20px;
-      border-top: 2px solid var(--accent2);
-      border-bottom: 2px solid var(--accent2);
+      border-top: 2px solid var(--rd-yellow);
+      border-bottom: 2px solid var(--rd-yellow);
       margin: 20px 0;
     }
 
-    /* Section header */
+    /* Section header — bigger { } decoration via class */
     .section-header {
       text-align: center !important;
     }
@@ -351,9 +401,10 @@
     }
     .section-header .section-num {
       font-size: 0.6em;
-      color: var(--warn);
+      color: var(--rd-yellow);
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      font-family: 'Tomorrow', sans-serif;
     }
 
     /* Asciinema slide */
@@ -375,11 +426,19 @@
     }
     .kiff-slide h1 {
       font-size: 3em !important;
-      color: var(--warn) !important;
+      color: var(--rd-yellow) !important;
     }
     .kiff-slide .emoji-big {
       font-size: 3em;
     }
+
+    /* ── Progress bar & controls — RivieraDev yellow ──────────── */
+    .reveal .progress { color: var(--rd-yellow); }
+    .reveal .controls { color: var(--rd-yellow); }
+
+    /* ── Links ──────────────────────────────────────────────────── */
+    .reveal a { color: var(--rd-blue); }
+    .reveal a:hover { color: var(--rd-yellow); text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -391,6 +450,9 @@
       <h1>GitHub Issue Driven Development</h1>
       <div class="subtitle">Terminer ses side projects pendant ses pauses café</div>
       <div class="conf">Riviera Dev 2026 · Mardi 7 juillet · 17h10-17h35 · Amphi 137</div>
+      <div class="rd-logo">
+        <img src="https://rivieradev.fr/static/images/logos/Riviera_Dev_Logo_Secondaire_Blanc.svg" alt="Riviera DEV" />
+      </div>
       <div class="author">
         Sun Tan · Sciam<br>
         <small>github.com/sunix</small>
@@ -1303,7 +1365,10 @@ et pareil pour les liens vers des sites web externe,
     <section class="title-slide">
       <h1>Merci ! 🙏</h1>
       <div class="subtitle">Questions ?</div>
-      <div style="margin-top:30px">
+      <div class="rd-logo">
+        <img src="https://rivieradev.fr/static/images/logos/Riviera_Dev_Logo_Secondaire_Blanc.svg" alt="Riviera DEV" />
+      </div>
+      <div style="margin-top:20px">
         <div class="chips" style="justify-content:center">
           <span class="chip">@sunix</span>
           <span class="chip">github.com/sunix</span>
@@ -1311,11 +1376,11 @@ et pareil pour les liens vers des sites web externe,
           <span class="chip">#RivieraDev2026</span>
         </div>
       </div>
-      <div class="author" style="margin-top:40px">
-        Ces slides : <a href="https://sunix.github.io/gidd-rd26-repet" style="color:var(--accent2)">sunix.github.io/gidd-rd26-repet</a>
+      <div class="author" style="margin-top:30px">
+        Ces slides : <a href="https://sunix.github.io/gidd-rd26-repet" style="color:var(--rd-blue)">sunix.github.io/gidd-rd26-repet</a>
       </div>
       <div class="author" style="margin-top:10px">
-        Feedback (issue à faire en live avec @copilot) : <a href="https://github.com/sunix/gidd-rd26-repet/issues/21" target="_blank" rel="noopener noreferrer" style="color:var(--accent2)">github.com/sunix/gidd-rd26-repet/issues/21</a>
+        Feedback (issue à faire en live avec @copilot) : <a href="https://github.com/sunix/gidd-rd26-repet/issues/21" target="_blank" rel="noopener noreferrer" style="color:var(--rd-blue)">github.com/sunix/gidd-rd26-repet/issues/21</a>
       </div>
     </section>
 
