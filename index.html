@@ -1381,6 +1381,82 @@ et pareil pour les liens vers des sites web externe,
       } catch (e) { /* cross-origin, ignore */ }
     });
   }
+
+  // ── Compte à rebours jusqu'à 17h35 dans la vue présentateur (touche S) ──────
+  (function () {
+    var END_HOUR = 17, END_MIN = 35;
+
+    function remaining() {
+      var now = new Date();
+      var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(),
+                         END_HOUR, END_MIN, 0, 0);
+      var diff = Math.max(0, end - now);
+      var totalSec = Math.round(diff / 1000);
+      var m = Math.floor(totalSec / 60);
+      var s = totalSec % 60;
+      return { diff: diff, label: pad(m) + ':' + pad(s) };
+    }
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function startCountdown(win) {
+      var doc = win.document;
+      if (doc.getElementById('rv-end-countdown')) return;
+
+      var el = doc.createElement('div');
+      el.id = 'rv-end-countdown';
+      el.title = 'Compte à rebours jusqu\u2019à 17h35';
+      el.style.cssText = [
+        'position:fixed', 'top:10px', 'right:10px',
+        'background:rgba(0,0,0,.82)', 'color:#50fa7b',
+        'font:bold 26px/1 monospace', 'padding:7px 14px',
+        'border-radius:6px', 'border:2px solid #50fa7b',
+        'z-index:99999', 'cursor:default', 'user-select:none'
+      ].join(';');
+      doc.body.appendChild(el);
+
+      function tick() {
+        if (win.closed) return;
+        var r = remaining();
+        el.textContent = '\u23f1 ' + r.label;
+        var color = r.diff < 60000 ? '#ff5555'
+                  : r.diff < 300000 ? '#ffb86c'
+                  : '#50fa7b';
+        el.style.color = color;
+        el.style.borderColor = color;
+      }
+
+      tick();
+      var iv = setInterval(function () {
+        if (win.closed) { clearInterval(iv); return; }
+        tick();
+      }, 1000);
+    }
+
+    // Intercept window.open to catch the Reveal.js speaker-view popup
+    var _open = window.open.bind(window);
+    window.open = function (url, name, features) {
+      var win = _open(url, name, features);
+      if (name === 'reveal.js - Speaker View' && win) {
+        var attempt = 0;
+        var tryInject = function () {
+          if (!win || win.closed) return;
+          try {
+            if (win.document && win.document.body) {
+              startCountdown(win);
+            } else if (++attempt < 40) {
+              setTimeout(tryInject, 250);
+            }
+          } catch (e) {
+            if (++attempt < 40) setTimeout(tryInject, 250);
+          }
+        };
+        setTimeout(tryInject, 500);
+      }
+      return win;
+    };
+  }());
+  // ─────────────────────────────────────────────────────────────────────────────
 </script>
 </body>
 </html>
