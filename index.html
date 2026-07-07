@@ -1385,6 +1385,9 @@ et pareil pour les liens vers des sites web externe,
   // ── Compte à rebours jusqu'à 17h35 dans la vue présentateur (touche S) ──────
   (function () {
     var END_HOUR = 17, END_MIN = 35;
+    var ONE_MINUTE_MS  = 60000;
+    var FIVE_MINUTES_MS = 300000;
+    var MAX_INJECT_ATTEMPTS = 40; // 40 × 250 ms = 10 s max
 
     function remaining() {
       var now = new Date();
@@ -1419,8 +1422,8 @@ et pareil pour les liens vers des sites web externe,
         if (win.closed) return;
         var r = remaining();
         el.textContent = '\u23f1 ' + r.label;
-        var color = r.diff < 60000 ? '#ff5555'
-                  : r.diff < 300000 ? '#ffb86c'
+        var color = r.diff < ONE_MINUTE_MS  ? '#ff5555'
+                  : r.diff < FIVE_MINUTES_MS ? '#ffb86c'
                   : '#50fa7b';
         el.style.color = color;
         el.style.borderColor = color;
@@ -1444,11 +1447,11 @@ et pareil pour les liens vers des sites web externe,
           try {
             if (win.document && win.document.body) {
               startCountdown(win);
-            } else if (++attempt < 40) {
+            } else if (++attempt < MAX_INJECT_ATTEMPTS) {
               setTimeout(tryInject, 250);
             }
           } catch (e) {
-            if (++attempt < 40) setTimeout(tryInject, 250);
+            if (++attempt < MAX_INJECT_ATTEMPTS) setTimeout(tryInject, 250);
           }
         };
         setTimeout(tryInject, 500);
