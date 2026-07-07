@@ -356,6 +356,19 @@
       text-transform: uppercase;
     }
 
+    /* Asciinema slide */
+    .asciinema-slide {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: 100%;
+    }
+    .asciinema-slide .asciinema-wrap {
+      flex: 1;
+      min-height: 0;
+      text-align: center;
+    }
+
     /* Kiff final slide */
     .kiff-slide {
       text-align: center !important;
@@ -1172,12 +1185,9 @@ et pareil pour les liens vers des sites web externe,
     </section>
 
     <!-- SLIDE : Asciinema - Installation Claude GitHub Action -->
-    <section>
+    <section class="asciinema-slide">
       <h2>Installer Claude GitHub Action 🎬</h2>
-      <p style="font-size:0.55em; opacity:0.85; margin:0 0 8px">
-        <code>claude /install-github-app</code> — ajoute un workflow qui écoute <code>@claude</code>
-      </p>
-      <div class="r-stretch" style="text-align:center">
+      <div class="asciinema-wrap r-stretch">
         <script
           src="https://asciinema.org/a/te6pmvACgbNgwd6F.js"
           id="asciicast-te6pmvACgbNgwd6F"
@@ -1189,7 +1199,8 @@ et pareil pour les liens vers des sites web externe,
         ></script>
       </div>
       <aside class="notes">
-        Démo asciinema de l'installation de Claude GitHub Action. En quelques minutes, on ajoute un workflow
+        Commande officielle : <code>claude /install-github-app</code>. Démo asciinema de l'installation de Claude
+        GitHub Action. En quelques minutes, on ajoute un workflow
         qui permet d'annoter @claude dans une issue ou une PR pour lui déléguer du travail, comme sur GIDD.
       </aside>
     </section>
@@ -1370,6 +1381,7 @@ et pareil pour les liens vers des sites web externe,
   // Stop YouTube videos when navigating away from a slide
   Reveal.on('slidechanged', function(event) {
     stopIframeVideos(event.previousSlide);
+    window.dispatchEvent(new Event('resize'));
   });
 
   Reveal.on('slidehidden', function(event) {
