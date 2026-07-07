@@ -356,6 +356,19 @@
       text-transform: uppercase;
     }
 
+    /* Asciinema slide */
+    .asciinema-slide {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: 100%;
+    }
+    .asciinema-slide .asciinema-wrap {
+      flex: 1;
+      min-height: 0;
+      text-align: center;
+    }
+
     /* Kiff final slide */
     .kiff-slide {
       text-align: center !important;
@@ -1171,6 +1184,27 @@ et pareil pour les liens vers des sites web externe,
       </aside>
     </section>
 
+    <!-- SLIDE : Asciinema - Installation Claude GitHub Action -->
+    <section class="asciinema-slide">
+      <h2>Installer Claude GitHub Action 🎬</h2>
+      <div class="asciinema-wrap r-stretch">
+        <script
+          src="https://asciinema.org/a/te6pmvACgbNgwd6F.js"
+          id="asciicast-te6pmvACgbNgwd6F"
+          data-autoplay="true"
+          data-loop="true"
+          data-speed="3"
+          data-fit="both"
+          async="true"
+        ></script>
+      </div>
+      <aside class="notes">
+        Commande officielle : <code>claude /install-github-app</code>. Démo asciinema de l'installation de Claude
+        GitHub Action. En quelques minutes, on ajoute un workflow
+        qui permet d'annoter @claude dans une issue ou une PR pour lui déléguer du travail, comme sur GIDD.
+      </aside>
+    </section>
+
     <!-- ========== SECTION : CONCLUSION ========== -->
     <section class="section-header">
       <h2>Conclusion</h2>
@@ -1325,6 +1359,11 @@ et pareil pour les liens vers des sites web externe,
     plugins: [ RevealHighlight, RevealNotes ]
   });
 
+  // Nudge the asciinema player to refit once Reveal has stretched its
+  // container (r-stretch), so the "fit=both" sizing accounts for the
+  // final available height instead of the size at initial load.
+  Reveal.on('ready', () => window.dispatchEvent(new Event('resize')));
+
   // Copy the raw (non-HTML) text of a prompt-box into the clipboard
   function copyPromptText(id, btn) {
     const text = document.getElementById(id).textContent;
@@ -1342,6 +1381,7 @@ et pareil pour les liens vers des sites web externe,
   // Stop YouTube videos when navigating away from a slide
   Reveal.on('slidechanged', function(event) {
     stopIframeVideos(event.previousSlide);
+    window.dispatchEvent(new Event('resize'));
   });
 
   Reveal.on('slidehidden', function(event) {
