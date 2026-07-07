@@ -986,6 +986,90 @@ et pareil pour les liens vers des sites web externe,
       </aside>
     </section>
 
+    <!-- SLIDE : Billing GitHub → Claude -->
+    <section>
+      <h2>Changement des tarifs GitHub Copilot 😱</h2>
+      <ul>
+        <li>5 juin 2026 : passage à l'usage-based billing</li>
+        <li>En 5 jours → 50% de mes crédits consommés !</li>
+        <li>Migration vers <strong>Claude Code</strong></li>
+      </ul>
+      <div class="two-col" style="margin-top:12px">
+        <div class="warn-box">
+          <strong>Claude Code</strong><br>
+          ✅ Fait bien le boulot<br>
+          ❌ Scotché sur le PC<br>
+          ❌ Moins intuitif<br>
+          ❌ Fini les interactions GitHub Issues/PR
+        </div>
+        <div class="highlight-box">
+          <strong>Solution : Claude GitHub Actions</strong><br>
+          Flow similaire à GIDD<br>
+          @Claude dans les issues<br>
+          <a href="https://code.claude.com/docs/en/github-actions" target="_blank" style="font-size:0.8em">↗ code.claude.com/docs</a>
+        </div>
+      </div>
+      <aside class="notes">
+        Mon gros frein a été le changement des tarifs de GitHub Copilot (passage au usage-based billing) :
+        en 5 jours, le 5 juin, j'avais consommé 50% de mes crédits. Je suis passé à Claude Code (forfait
+        Claude Code Team pris par Sciam). Claude fait bien le boulot, mais j'étais tout le temps scotché
+        sur mon PC. Claude Code est moins intuitif : Copilot utilise certains MCP comme Playwright plus
+        facilement. Surtout, fini les interactions avec l'agent sur les issues et PR GitHub : tout se fait
+        en local sur un PC avec un IDE. En terme de charge mentale, le GitHub Issue Driven Development est
+        moins intrusif : je pouvais passer 1 min sur mon téléphone pendant que ma fille était à la piscine
+        pour commenter une PR, alors qu'avec Claude Code je dois rester sur mon PC.
+        Néanmoins, j'ai fini par installer récemment Claude GitHub Action sur certains projets, ce qui me
+        permet un flow similaire à GIDD (ex. tc11.fr, en annotant @Claude dans une issue).
+      </aside>
+    </section>
+
+    <!-- SLIDE : Asciinema - Installation Claude GitHub Action -->
+    <section class="asciinema-slide">
+      <h2>Installer Claude GitHub Action 🎬</h2>
+      <div class="asciinema-wrap r-stretch">
+        <script
+          src="https://asciinema.org/a/te6pmvACgbNgwd6F.js"
+          id="asciicast-te6pmvACgbNgwd6F"
+          data-autoplay="true"
+          data-loop="true"
+          data-speed="3"
+          data-fit="both"
+          async="true"
+        ></script>
+      </div>
+      <aside class="notes">
+        Commande officielle : <code>claude /install-github-app</code>. Démo asciinema de l'installation de Claude
+        GitHub Action. En quelques minutes, on ajoute un workflow
+        qui permet d'annoter @claude dans une issue ou une PR pour lui déléguer du travail, comme sur GIDD.
+      </aside>
+    </section>
+
+    <!-- ========== SECTION : CONCLUSION ========== -->
+    <section class="section-header">
+      <h2>Conclusion</h2>
+    </section>
+
+    <!-- SLIDE : Suivez les bonnes pratiques -->
+    <section>
+      <h2>Suivez les bonnes pratiques de dev ! 🏆</h2>
+      <div class="big-quote">
+        Mettez-vous à la place de l'IA en tant que personne
+      </div>
+      <ul>
+        <li>📝 <strong>Documentation</strong> — elle s'en sert comme un humain</li>
+        <li>📋 <strong>Spec claire</strong> — définitions of done précises</li>
+        <li>🔧 <strong>Choix techniques</strong> documentés dans <code>agent.md</code></li>
+        <li>🎯 <strong>Petites tâches</strong> — ne pas lui demander trop d'un coup</li>
+        <li>🔄 <strong>Itérations</strong> — votre feedback est précieux</li>
+      </ul>
+      <aside class="notes">
+        Oui, au final, suivez les bonnes pratiques de dev ! Si vous suivez les bonnes pratiques que l'on
+        connaît tous, l'IA va savoir mieux travailler. Mettez-vous à la place de l'IA en tant que personne
+        (documentation, spec, choix technique, règles à suivre, definition of done) : l'agent va en tenir
+        compte comme un humain, voire mieux. Ça me permet de bosser sur des sujets, de garder le rythme.
+      </aside>
+    </section>
+
     <!-- SLIDE : Projets terminés avec GIDD (1/3) -->
     <section>
       <h2>Projets terminés avec GIDD (1/3)</h2>
@@ -1144,112 +1228,6 @@ et pareil pour les liens vers des sites web externe,
         où j'ai dû tester des rendus vidéo en local), un petit jeu pour apprendre l'alphabet codé avec ma
         fille, vcards — une app pour scanner les QR codes des badges RivieraDev codée la veille de la
         conf —, et un article sur GIDD publié sur le blog de Sciam.
-      </aside>
-    </section>
-
-    <!-- SLIDE : Billing GitHub → Claude -->
-    <section>
-      <h2>Changement des tarifs GitHub Copilot 😱</h2>
-      <ul>
-        <li>5 juin 2026 : passage à l'usage-based billing</li>
-        <li>En 5 jours → 50% de mes crédits consommés !</li>
-        <li>Migration vers <strong>Claude Code</strong></li>
-      </ul>
-      <div class="two-col" style="margin-top:12px">
-        <div class="warn-box">
-          <strong>Claude Code</strong><br>
-          ✅ Fait bien le boulot<br>
-          ❌ Scotché sur le PC<br>
-          ❌ Moins intuitif<br>
-          ❌ Fini les interactions GitHub Issues/PR
-        </div>
-        <div class="highlight-box">
-          <strong>Solution : Claude GitHub Actions</strong><br>
-          Flow similaire à GIDD<br>
-          @Claude dans les issues<br>
-          <a href="https://code.claude.com/docs/en/github-actions" target="_blank" style="font-size:0.8em">↗ code.claude.com/docs</a>
-        </div>
-      </div>
-      <aside class="notes">
-        Mon gros frein a été le changement des tarifs de GitHub Copilot (passage au usage-based billing) :
-        en 5 jours, le 5 juin, j'avais consommé 50% de mes crédits. Je suis passé à Claude Code (forfait
-        Claude Code Team pris par Sciam). Claude fait bien le boulot, mais j'étais tout le temps scotché
-        sur mon PC. Claude Code est moins intuitif : Copilot utilise certains MCP comme Playwright plus
-        facilement. Surtout, fini les interactions avec l'agent sur les issues et PR GitHub : tout se fait
-        en local sur un PC avec un IDE. En terme de charge mentale, le GitHub Issue Driven Development est
-        moins intrusif : je pouvais passer 1 min sur mon téléphone pendant que ma fille était à la piscine
-        pour commenter une PR, alors qu'avec Claude Code je dois rester sur mon PC.
-        Néanmoins, j'ai fini par installer récemment Claude GitHub Action sur certains projets, ce qui me
-        permet un flow similaire à GIDD (ex. tc11.fr, en annotant @Claude dans une issue).
-      </aside>
-    </section>
-
-    <!-- SLIDE : Asciinema - Installation Claude GitHub Action -->
-    <section class="asciinema-slide">
-      <h2>Installer Claude GitHub Action 🎬</h2>
-      <div class="asciinema-wrap r-stretch">
-        <script
-          src="https://asciinema.org/a/te6pmvACgbNgwd6F.js"
-          id="asciicast-te6pmvACgbNgwd6F"
-          data-autoplay="true"
-          data-loop="true"
-          data-speed="3"
-          data-fit="both"
-          async="true"
-        ></script>
-      </div>
-      <aside class="notes">
-        Commande officielle : <code>claude /install-github-app</code>. Démo asciinema de l'installation de Claude
-        GitHub Action. En quelques minutes, on ajoute un workflow
-        qui permet d'annoter @claude dans une issue ou une PR pour lui déléguer du travail, comme sur GIDD.
-      </aside>
-    </section>
-
-    <!-- ========== SECTION : CONCLUSION ========== -->
-    <section class="section-header">
-      <h2>Conclusion</h2>
-    </section>
-
-    <!-- SLIDE : Suivez les bonnes pratiques -->
-    <section>
-      <h2>Suivez les bonnes pratiques de dev ! 🏆</h2>
-      <div class="big-quote">
-        Mettez-vous à la place de l'IA en tant que personne
-      </div>
-      <ul>
-        <li>📝 <strong>Documentation</strong> — elle s'en sert comme un humain</li>
-        <li>📋 <strong>Spec claire</strong> — définitions of done précises</li>
-        <li>🔧 <strong>Choix techniques</strong> documentés dans <code>agent.md</code></li>
-        <li>🎯 <strong>Petites tâches</strong> — ne pas lui demander trop d'un coup</li>
-        <li>🔄 <strong>Itérations</strong> — votre feedback est précieux</li>
-      </ul>
-      <aside class="notes">
-        Oui, au final, suivez les bonnes pratiques de dev ! Si vous suivez les bonnes pratiques que l'on
-        connaît tous, l'IA va savoir mieux travailler. Mettez-vous à la place de l'IA en tant que personne
-        (documentation, spec, choix technique, règles à suivre, definition of done) : l'agent va en tenir
-        compte comme un humain, voire mieux. Ça me permet de bosser sur des sujets, de garder le rythme.
-      </aside>
-    </section>
-
-    <!-- SLIDE : Bilan projets -->
-    <section>
-      <h2>Bilan des projets lancés 📊</h2>
-      <ul class="project-list">
-        <li><span class="badge-done">✅</span> Carte cadeaux — full GIDD, je m'en sers tous les jours</li>
-        <li><span class="badge-done">✅</span> Test maturity assessment</li>
-        <li><span class="badge-done">✅</span> Tirage au sort Bluesky — full GIDD</li>
-        <li><span class="badge-done">✅</span> Tennis Match Score</li>
-        <li><span class="badge-wip">🔄</span> jdtls-mcp — mix chat + GIDD</li>
-        <li><span class="badge-wip">🔄</span> Blog migration Quarkus Roq</li>
-        <li><span class="badge-wip">🔄</span> tc11.fr website — mix chat + GIDD</li>
-        <li><span class="badge-wip">🔄</span> App gestion notes de frais</li>
-      </ul>
-      <aside class="notes">
-        Bilan des projets lancés (github.com/dashboard) : carte cadeaux (done, full GIDD, utilisée tous les
-        jours), test maturity assessment (done), jdtls-mcp (mix chat et GIDD), blog migration vers Roq (mix
-        chat et GIDD), tirage au sort Bluesky (full GIDD), Tennis Match Score, tc11 website (mix chat/VS Code
-        et GIDD), quelques issues pour ParisJUG website / streaming, Secret Santa, et l'application de gestion
-        de notes de frais (en cours, on verra si ça marche).
       </aside>
     </section>
 
