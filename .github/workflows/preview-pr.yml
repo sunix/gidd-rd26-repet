@@ -28,8 +28,9 @@ jobs:
       - name: Resolve PR number
         shell: bash
         run: |
+          # github.event.issue.number is set by GitHub and cannot be manipulated
+          # via comment content; we only validate it is numeric for safety.
           PR_NUM="${{ github.event.issue.number }}"
-          # Validate PR number is numeric
           if ! [[ "$PR_NUM" =~ ^[0-9]+$ ]]; then
             echo "Error: Invalid PR number: $PR_NUM"
             exit 1
@@ -104,6 +105,8 @@ jobs:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
         run: |
           set -euo pipefail
+          # Subdomain format: pr-{number}-gidd-rd26-preview
+          # "gidd-rd26" identifies this repository (gidd-rd26-repet).
           export DEPLOY_DOMAIN="pr-${{ env.PR_NUMBER }}-gidd-rd26-preview.surge.sh"
           surge . --domain "$DEPLOY_DOMAIN" --token "$SURGE_TOKEN"
           echo "DEPLOY_URL=https://$DEPLOY_DOMAIN" >> $GITHUB_ENV
@@ -119,7 +122,11 @@ jobs:
         with:
           script: |
             const commentId = Number(process.env.COMMENT_ID);
-            const previewUrl = process.env.PREVIEW_URL || 'unavailable';
+            const previewUrl = process.env.PREVIEW_URL;
+            if (!previewUrl) {
+              core.setFailed('DEPLOY_URL is not set — deployment may have failed silently.');
+              return;
+            }
             const body = `🚀 **Preview deployed successfully!**\n\n🌐 Preview: [${previewUrl}](${previewUrl})`;
             await github.rest.issues.updateComment({
               comment_id: commentId,
