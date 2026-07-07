@@ -239,6 +239,26 @@
       opacity: 0.8;
     }
 
+    /* Feedback QR code (closing slide) */
+    .feedback-qr {
+      margin: 30px auto 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .feedback-qr img {
+      width: 160px;
+      height: 160px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .feedback-qr-caption {
+      font-size: 0.55em;
+      color: #ccc;
+    }
+
     /* Tag chips */
     .chips {
       display: flex;
@@ -1310,6 +1330,10 @@ et pareil pour les liens vers des sites web externe,
           <span class="chip">#GIDD</span>
           <span class="chip">#RivieraDev2026</span>
         </div>
+      </div>
+      <div class="feedback-qr">
+        <img data-src="assets/feedback-qrcode.png" alt="QR code d'accès au formulaire de feedback de la session (Riviera Dev)">
+        <div class="feedback-qr-caption">📱 Scannez pour donner votre feedback sur la session</div>
       </div>
       <div class="author" style="margin-top:40px">
         Ces slides : <a href="https://sunix.github.io/gidd-rd26-repet" style="color:var(--accent2)">sunix.github.io/gidd-rd26-repet</a>
