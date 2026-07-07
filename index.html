@@ -30,10 +30,23 @@
     }
 
     /* ── Base overrides ────────────────────────────────────────── */
-    .reveal-viewport { background: var(--rd-dark); }
+    .reveal-viewport {
+      background:
+        /* RivieraDev gold sun — bottom-right warm glow */
+        radial-gradient(ellipse 55% 55% at 90% 95%, rgba(253, 186, 29, 0.10) 0%, transparent 100%),
+        /* RivieraDev blue sea — top-left cool glow */
+        radial-gradient(ellipse 65% 55% at 5% 5%, rgba(25, 184, 213, 0.13) 0%, transparent 100%),
+        /* Subtle low-poly diagonal tiling */
+        linear-gradient(135deg, rgba(25, 184, 213, 0.03) 25%, transparent 25%) -20px 0,
+        linear-gradient(225deg, rgba(25, 184, 213, 0.03) 25%, transparent 25%) -20px 0,
+        linear-gradient(315deg, rgba(25, 184, 213, 0.03) 25%, transparent 25%),
+        linear-gradient( 45deg, rgba(25, 184, 213, 0.03) 25%, transparent 25%),
+        var(--rd-dark);
+      background-size: auto, auto, 40px 40px, 40px 40px, 40px 40px, 40px 40px, auto;
+    }
     .reveal {
       font-family: 'Muli', sans-serif;
-      background: var(--rd-dark);
+      background: transparent;
     }
 
     .reveal .slides section {
